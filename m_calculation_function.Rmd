@@ -1,0 +1,28 @@
+---
+title: "M Calculation Function"
+output: html_notebook
+---
+
+Temperature is in Kelvin
+
+$C = 5, R = 8.314463$
+
+$\Delta E_\eta = \frac{CR}{(\frac{1}{T_{g_{on}}}-\frac{1}{T_{g_{end}}})}$
+
+$m = \frac{\Delta E_\eta}{\ln(10) RT_{g_{end}}}$
+
+$m = \frac{C}{(\frac{1}{T_{g_{on}}}-\frac{1}{T_{g_{end}}})(\ln(10)T_{g_{on}})}$
+
+```{r}
+calculate_m <- function(tg_on, tg_end, c = 5, r = 8.314463, temp = "celcius") {
+      if(temp == "celcius") {
+            m <- c / (((1 / (tg_on + 273.15)) - (1 / (tg_end + 273.15))) *
+                        (log(10) * (tg_on + 273.15)))
+            return(m)
+      } else if(temp == "kelvin") {
+            m <- c / (((1 / tg_on) - (1 / tg_end)) * (log(10) * tg_on))
+            return(m)
+      }
+}
+
+```
